@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter >
+        <BrowserRouter basename="/AyatTask/" >
           <App />
         </BrowserRouter>
       </QueryClientProvider>

@@ -35,6 +35,7 @@ const LoginForm = () => {
     };
     useEffect(() => {
         if (isSuccess) {
+            console.log(data)
             dispatch(login({
                 user: data.data,
             }))
@@ -49,7 +50,7 @@ const LoginForm = () => {
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting }) => (
-                    <Form className="flex flex-col gap-4 lg:w-[25rem]">
+                    <Form className="flex flex-col gap-4 lg:w-[25rem] md:w-[21rem] w-[18rem]">
                         <div className="flex flex-col ">
                             <label htmlFor="userName" className=" bg-white text-xs relative bottom-[-6px] w-fit left-5 font-normal text-[#637381]">Username</label>
                             <Field

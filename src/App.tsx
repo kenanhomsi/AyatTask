@@ -9,7 +9,6 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/Login" element={<Login />} />
         <Route path="/" element={
           <PrivateRoute >
             <UserDashBoard>
@@ -22,7 +21,8 @@ function App() {
             <Profile />
           </UserDashBoard>
         </PrivateRoute>} />
-        <Route path="*" element={<PrivateRoute>
+        <Route path="/Login" element={<Login />} />
+        <Route path="/*" element={<PrivateRoute>
           <NotFound />
         </PrivateRoute>} />
       </Routes>
