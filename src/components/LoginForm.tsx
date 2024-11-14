@@ -1,47 +1,34 @@
 import { ErrorMessage, Field, Form, Formik } from "formik"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
 import { VscEye } from "react-icons/vsc";
 import { VscEyeClosed } from "react-icons/vsc";
 import { useLogin } from "../api/acounnt/useLogin";
 import { LoginValues } from "../Types";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { login } from "../redux/Slices/UserSlice";
 
 const LoginForm = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch()
     const [showPassword, setShowPassword] = useState(false);
     const addNewProjectValidationSchema = () => {
         return Yup.object({
-            userName: Yup.string()
+            identification: Yup.string()
                 .required("userName is required")
                 .min(3, "userName must be at least 3 characters long"),
-            Password: Yup.string()
+            password: Yup.string()
                 .required("Password is required")
                 .min(8, "Password must be at least 8 characters long")
                 .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
         })
     };
 
-    const { mutate, isError, error, isSuccess, data } = useLogin();
+    const { mutate, isError, error } = useLogin();
     const initialValues = {
-        userName: "",
-        Password: ""
+        identification: "",
+        password: ""
     };
     const handleSubmit = (values: LoginValues) => {
         mutate(values)
     };
-    useEffect(() => {
-        if (isSuccess) {
-            console.log(data)
-            dispatch(login({
-                user: data.data,
-            }))
-            navigate('/');
-        }
-    }, [isSuccess, data])
+
     return (
         <div className=" bg-white py-10 px-6 rounded-[30px]">
             <Formik
@@ -55,13 +42,13 @@ const LoginForm = () => {
                             <label htmlFor="userName" className=" bg-white text-xs relative bottom-[-6px] w-fit left-5 font-normal text-[#637381]">Username</label>
                             <Field
                                 type="text"
-                                id="userName"
-                                name="userName"
+                                id="identification"
+                                name="identification"
                                 className="border py-4 px-[14px] rounded-[50px] border-outline text-dark text-sm font-normal"
                                 placeholder="Username"
                             />
                             <ErrorMessage
-                                name="userName"
+                                name="identification"
                                 component="div"
                                 className="text-red-500 text-sm"
                             />
@@ -69,8 +56,8 @@ const LoginForm = () => {
                         <div className="relative w-full ">
                             <Field
                                 type={showPassword ? "text" : "password"}
-                                id="Password"
-                                name="Password"
+                                id="password"
+                                name="password"
                                 placeholder='Password'
                                 className="border w-full py-4 px-[14px] rounded-[50px] border-outline text-dark text-sm font-normal"
                             />
@@ -82,7 +69,7 @@ const LoginForm = () => {
                                 {showPassword ? <VscEyeClosed /> : <VscEye />}
                             </button>
                             <ErrorMessage
-                                name="Password"
+                                name="password"
                                 component="div"
                                 className="text-red-500 text-sm"
                             />

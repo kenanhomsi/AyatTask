@@ -1,6 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../axios";
 import { LoginValues } from "../../Types";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/Slices/UserSlice";
+import { useNavigate } from "react-router-dom";
 
 export const loginFunc = async (payload: LoginValues) => {
     try {
@@ -13,10 +16,15 @@ export const loginFunc = async (payload: LoginValues) => {
 };
 
 export const useLogin = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const mutation = useMutation({
         mutationFn: loginFunc,
         onSuccess: (data) => {
-            console.log('Login successful:', data);
+            dispatch(login({
+                user: data.data,
+            }))
+            navigate('/');
         },
         onError: (error) => {
             console.error('Login failed:', error);

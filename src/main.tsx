@@ -7,12 +7,11 @@ import './index.css'
 import App from './App.tsx'
 import store from './redux/store.ts'
 const queryClient = new QueryClient();
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter basename="/AyatTask/" >
+        <BrowserRouter  >
           <App />
         </BrowserRouter>
       </QueryClientProvider>
